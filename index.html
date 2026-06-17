@@ -66,6 +66,26 @@ input[type=text]{min-width:200px}
 </style>
 </head>
 <body>
+<div id="gate" style="position:fixed;inset:0;z-index:9999;background:#0f1115;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:16px">
+  <div style="font-size:22px;font-weight:600;color:#e6e8ec">OIS VINA 자재 현황</div>
+  <div style="font-size:13px;color:#9aa0ac">접속 암호를 입력하세요</div>
+  <input id="gatePw" type="password" inputmode="numeric" placeholder="암호" autofocus
+    style="background:#1d212a;border:1px solid #2a2f3a;color:#e6e8ec;padding:12px 16px;border-radius:10px;font-size:16px;text-align:center;width:200px;letter-spacing:4px">
+  <button id="gateBtn" style="background:#7f77dd;color:#fff;border:none;padding:12px 28px;border-radius:10px;font-size:15px;font-weight:600;cursor:pointer">입장</button>
+  <div id="gateErr" style="font-size:13px;color:#e24b4a;height:16px"></div>
+</div>
+<script>
+(function(){
+  const GATE_PW='0520';
+  const gate=document.getElementById('gate'),pw=document.getElementById('gatePw'),btn=document.getElementById('gateBtn'),err=document.getElementById('gateErr');
+  function tryEnter(){
+    if(pw.value===GATE_PW){gate.style.display='none';}
+    else{err.textContent='암호가 틀렸습니다.';pw.value='';pw.focus();}
+  }
+  btn.addEventListener('click',tryEnter);
+  pw.addEventListener('keydown',e=>{if(e.key==='Enter')tryEnter();});
+})();
+</script>
 <div class="wrap">
 <header><h1>OIS VINA 자재 현황</h1><span class="sub" id="periodlbl"></span>
 <span id="lastUpdate" style="margin-left:auto;font-size:13px;color:var(--ok);background:#13261d;border:1px solid #1d4030;border-radius:8px;padding:6px 12px;white-space:nowrap"></span></header>
